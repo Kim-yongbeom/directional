@@ -35,6 +35,8 @@ export const SnackBrandsCharts = ({ data }: SnackBrandsChartsProps) => {
 
     const currentLabels = data.map((d: SnackBrand) => d.name);
 
+    // 초기 legend 동기화를 위한 효과로, 외부 데이터(data)에 맞춰 한 번만 정리
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLegend((prev) => {
       const next: BrandLegend = { ...prev };
 

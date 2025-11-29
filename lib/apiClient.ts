@@ -43,21 +43,27 @@ export const apiRequest = async <T>(
   });
 
   if (!res.ok) {
-    let errorBody: any = null;
+    let errorBody: unknown = null;
     try {
       errorBody = await res.json();
     } catch {
       // ignore
     }
 
-    const message =
-      (errorBody && (errorBody.message as string)) ||
-      `API 요청 실패 (${res.status})`;
+    let message = `API 요청 실패 (${res.status})`;
+    if (
+      errorBody &&
+      typeof errorBody === "object" &&
+      "message" in errorBody &&
+      typeof (errorBody as { message?: unknown }).message === "string"
+    ) {
+      message = (errorBody as { message: string }).message;
+    }
 
     const error = new Error(message);
-    // @ts-expect-error 추가 정보
+    // @ts-expect-error 추가 정보 필드(status)는 런타임에서만 사용
     error.status = res.status;
-    // @ts-expect-error 추가 정보
+    // @ts-expect-error 추가 정보 필드(body)는 런타임에서만 사용
     error.body = errorBody;
     throw error;
   }
@@ -65,7 +71,8 @@ export const apiRequest = async <T>(
   try {
     return (await res.json()) as T;
   } catch {
-    // @ts-expect-error
+    // JSON 응답이 아닐 수도 있으므로 null을 허용
+    // @ts-expect-error - 호출부에서 null 가능성을 함께 처리
     return null;
   }
 };

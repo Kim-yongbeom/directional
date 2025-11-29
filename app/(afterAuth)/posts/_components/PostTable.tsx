@@ -213,7 +213,14 @@ export const PostTable = ({
                   if (col.key === "createdAt") {
                     value = new Date(post.createdAt).toLocaleString();
                   } else {
-                    value = (post as any)[col.key];
+                    const postRecord: Record<string, React.ReactNode> = {
+                      id: post.id,
+                      title: post.title,
+                      body: post.body,
+                      category: post.category,
+                      tags: post.tags,
+                    };
+                    value = postRecord[col.key as string];
                   }
 
                   const content =

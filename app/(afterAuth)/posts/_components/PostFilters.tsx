@@ -51,7 +51,7 @@ export const PostFilters = ({
       try {
         input.showPicker();
       } catch {
-        // 일부 브라우저에서는 제약이 있을 수 있으므로 에러는 무시
+
       }
     }
   };
@@ -153,10 +153,12 @@ export const PostFilters = ({
           <span className="text-sm font-medium text-gray-600">정렬</span>
           <div className="flex flex-wrap gap-2">
             <div className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-1 py-0.5">
-              {[
-                { label: "생성일", value: "createdAt" as "createdAt" },
-                { label: "제목", value: "title" as "title" },
-              ].map((opt) => {
+              {(
+                [
+                  { label: "생성일", value: "createdAt" },
+                  { label: "제목", value: "title" },
+                ] as const
+              ).map((opt) => {
                 const active = sort === opt.value;
                 return (
                   <button
@@ -175,10 +177,12 @@ export const PostFilters = ({
               })}
             </div>
             <div className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-1 py-0.5">
-              {[
-                { label: "내림차순", value: "desc" as "desc" },
-                { label: "오름차순", value: "asc" as "asc" },
-              ].map((opt) => {
+              {(
+                [
+                  { label: "내림차순", value: "desc" },
+                  { label: "오름차순", value: "asc" },
+                ] as const
+              ).map((opt) => {
                 const active = order === opt.value;
                 return (
                   <button

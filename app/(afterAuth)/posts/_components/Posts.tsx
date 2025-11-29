@@ -60,7 +60,6 @@ const Posts = () => {
     queryFn: ({ pageParam }: { pageParam?: string | null }) => {
       const toIso = (value: string | undefined) => {
         if (!value) return undefined;
-        // string($date-time) 형식으로 ISO 날짜 문자열 생성 (datetime-local 값 사용)
         const d = new Date(value);
         return d.toISOString();
       };

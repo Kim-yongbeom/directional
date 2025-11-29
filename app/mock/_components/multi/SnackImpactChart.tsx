@@ -7,6 +7,7 @@ import {
   LineElement,
   PointElement,
   Tooltip,
+  type TooltipItem,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import type { SnackImpactResponse } from "@/lib/mockApi";
@@ -22,6 +23,19 @@ type LegendItem = {
 };
 
 const COLORS = ["#f97316", "#2563eb", "#9333ea"];
+
+type SnackLineDataset = {
+  label: string;
+  data: (number | null)[];
+  borderColor: string;
+  backgroundColor: string;
+  yAxisID: "y" | "y1";
+  tension: number;
+  pointStyle: "circle" | "rect";
+  pointRadius: number;
+  hidden: boolean;
+  borderDash?: number[];
+};
 
 export const SnackImpactChart = ({
   data,
@@ -41,7 +55,7 @@ export const SnackImpactChart = ({
     if (!data.departments.length) return { labels: [], datasets: [] };
     const base = data.departments[0].metrics;
     const labels = base.map((p) => p.snacks);
-    const datasets: any[] = [];
+    const datasets: SnackLineDataset[] = [];
 
     legend.forEach((dept) => {
       const deptData = data.departments.find((d) => d.name === dept.key);
@@ -93,11 +107,11 @@ export const SnackImpactChart = ({
       legend: { display: false },
       tooltip: {
         callbacks: {
-          title: (items: any) =>
+          title: (items: TooltipItem<"line">[]) =>
             items.length ? `스낵 ${items[0].label}개` : "",
           // 한 부서의 X축(스낵 수)에 해당하는 회의불참/사기를 함께 표시
-          label: (ctx: any) => {
-            const label = ctx.label;
+          label: (ctx: TooltipItem<"line">) => {
+            const label = ctx.label as string;
             const snacks = Number(label);
             const [dept] = String(ctx.dataset.label || "").split(" ");
 

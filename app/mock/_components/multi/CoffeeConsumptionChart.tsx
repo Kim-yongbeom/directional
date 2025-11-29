@@ -7,6 +7,7 @@ import {
   LineElement,
   PointElement,
   Tooltip,
+  type TooltipItem,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import type { CoffeeConsumptionResponse } from "@/lib/mockApi";
@@ -22,6 +23,19 @@ type LegendItem = {
 };
 
 const COLORS = ["#f97316", "#2563eb", "#9333ea"];
+
+type CoffeeLineDataset = {
+  label: string;
+  data: (number | null)[];
+  borderColor: string;
+  backgroundColor: string;
+  yAxisID: "y" | "y1";
+  tension: number;
+  pointStyle: "circle" | "rect";
+  pointRadius: number;
+  hidden: boolean;
+  borderDash?: number[];
+};
 
 export const CoffeeConsumptionChart = ({
   data,
@@ -41,7 +55,7 @@ export const CoffeeConsumptionChart = ({
     if (!data.teams.length) return { labels: [], datasets: [] };
     const base = data.teams[0].series;
     const labels = base.map((p) => p.cups);
-    const datasets: any[] = [];
+    const datasets: CoffeeLineDataset[] = [];
 
     legend.forEach((team) => {
       const teamData = data.teams.find((t) => t.team === team.key);
@@ -92,11 +106,11 @@ export const CoffeeConsumptionChart = ({
       legend: { display: false },
       tooltip: {
         callbacks: {
-          title: (items: any) =>
+          title: (items: TooltipItem<"line">[]) =>
             items.length ? `커피 ${items[0].label}잔` : "",
           // 한 팀의 X축(잔 수)에 해당하는 버그/생산성을 함께 표시
-          label: (ctx: any) => {
-            const label = ctx.label;
+          label: (ctx: TooltipItem<"line">) => {
+            const label = ctx.label as string;
             const cups = Number(label);
             const [team] = String(ctx.dataset.label || "").split(" ");
 

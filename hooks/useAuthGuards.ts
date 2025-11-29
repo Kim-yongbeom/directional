@@ -17,6 +17,8 @@ export const useRequireAuth = (redirectTo: string = "/login") => {
       return;
     }
 
+    // 토큰 확인이 끝난 시점에 한 번만 상태를 false로 전환
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsChecking(false);
   }, [router, redirectTo]);
 
@@ -36,6 +38,8 @@ export const useGuestOnly = (redirectTo: string = "/posts") => {
       return;
     }
 
+    // 토큰 확인이 끝난 시점에 한 번만 상태를 false로 전환
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsChecking(false);
   }, [router, redirectTo]);
 
