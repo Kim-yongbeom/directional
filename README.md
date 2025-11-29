@@ -1,3 +1,6 @@
+## 배포 url
+- https://directional-navy.vercel.app
+
 ## 프로젝트 개요
 
 이 레포지토리는 **Next.js(App Router) + React 19 + TypeScript + Tailwind CSS** 기반의 예제 프로젝트입니다.  

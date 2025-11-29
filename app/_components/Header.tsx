@@ -21,7 +21,7 @@ export const Header = () => {
           <Link href="/posts" className="text-sm font-semibold tracking-[0.2em] text-gray-800">
             디렉셔널
           </Link>
-
+          testetstestset
           <nav className="flex items-center gap-2 text-xs">
             <Link
               href="/posts"
