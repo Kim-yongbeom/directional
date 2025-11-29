@@ -1,6 +1,53 @@
 ## 배포 url
 - https://directional-navy.vercel.app
 
+## 실행 방법
+
+### 1. 의존성 설치
+
+(node 버전 22.18.0 에서 실행행)
+프로젝트 루트(`package.json`이 있는 위치)에서:
+
+```
+npm install
+```
+
+### 2. 서버 실행
+
+```
+npm run build 빌드 후
+npm run start
+```
+
+브라우저에서 `http://localhost:3000` 으로 접속합니다.
+
+### 3. 라우팅
+- `/login`: 로그인 화면면
+- `/posts`: 게시판 화면
+- `/mock`: Mock 차트 대시보드
+
+---
+
+## 주요 기술 스택
+
+- **Framework**
+  - Next.js (App Router)
+  - React 19
+  - TypeScript
+
+- **스타일링 / UI**
+  - Tailwind CSS
+
+- **데이터 패칭 / 상태관리**
+  - `@tanstack/react-query` (Query, InfiniteQuery, Mutation)
+  - 커스텀 `apiClient` 래퍼로 API 호출
+
+- **차트**
+  - `chart.js`
+  - `react-chartjs-2`
+
+---
+
 ## 프로젝트 개요
 
 이 레포지토리는 **Next.js(App Router) + React 19 + TypeScript + Tailwind CSS** 기반의 예제 프로젝트입니다.  
@@ -23,26 +70,6 @@
 
 인증 이후 영역은 `app/(afterAuth)` 레이아웃을 통해 보호되며, 상단 공통 헤더에서  
 **게시판(/posts)** 와 **Mock 차트(/mock)** 로 이동할 수 있습니다.
-
----
-
-## 주요 기술 스택
-
-- **Framework**
-  - Next.js (App Router)
-  - React 19
-  - TypeScript
-
-- **스타일링 / UI**
-  - Tailwind CSS
-
-- **데이터 패칭 / 상태관리**
-  - `@tanstack/react-query` (Query, InfiniteQuery, Mutation)
-  - 커스텀 `apiClient` 래퍼로 API 호출
-
-- **차트**
-  - `chart.js`
-  - `react-chartjs-2`
 
 ---
 
@@ -93,29 +120,3 @@ lib/
 ```
 
 ---
-
-## 실행 방법
-
-### 1. 의존성 설치
-
-(node 버전 22.18.0 에서 실행행)
-프로젝트 루트(`package.json`이 있는 위치)에서:
-
-```
-npm install
-```
-
-### 2. 서버 실행
-
-```
-npm run build 빌드 후
-npm run start
-```
-
-브라우저에서 `http://localhost:3000` 으로 접속합니다.
-
-### 3. 라우팅
-- `/login`: 로그인 화면면
-- `/posts`: 게시판 화면
-- `/mock`: Mock 차트 대시보드
-
